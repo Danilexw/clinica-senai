@@ -36,3 +36,36 @@ formPaciente.addEventListener('submit', async (event) => {
         formPaciente.reset(); 
     }
 });
+
+// 1. Referenciar os novos elementos
+const btnListar = document.getElementById('btn-listar');
+const listaPacientes = document.getElementById('lista-pacientes');
+
+// 2. Criar a função de busca (Select)
+btnListar.addEventListener('click', async () => {
+    // Busca todos os campos da tabela 'pacientes'
+    const { data, error } = await supabase
+        .from('pacientes')
+        .select('*');
+
+    if (error) {
+        alert('Erro ao buscar dados: ' + error.message);
+        return;
+    }
+
+    // 3. Limpar a lista antes de mostrar (para não duplicar se clicar duas vezes)
+    listaPacientes.innerHTML = '<h4>Pacientes Cadastrados:</h4>';
+
+    // 4. Criar o visual da lista
+    if (data.length === 0) {
+        listaPacientes.innerHTML += '<p>Nenhum paciente encontrado.</p>';
+    } else {
+        const ul = document.createElement('ul');
+        data.forEach(paciente => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${paciente.nome}</strong> - ${paciente.celular} (${paciente.email})`;
+            ul.appendChild(li);
+        });
+        listaPacientes.appendChild(ul);
+    }
+});
