@@ -1,24 +1,18 @@
-
 const SUPABASE_URL = 'https://fcctdgqaxlllerhysagu.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjY3RkZ3FheGxsbGVyaHlzYWd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NzM5NTIsImV4cCI6MjA5MDU0OTk1Mn0.OOKktZcWCRpwo6aS82qHCYynE9HCn0a0zdIrA6JJF5w'; 
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-
-
-
+// --- LÓGICA DE CADASTRO ---
 const formPaciente = document.getElementById('form-paciente');
-
 
 formPaciente.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-
     const nome = document.getElementById('nome').value;
     const celular = document.getElementById('celular').value;
     const email = document.getElementById('email').value;
-
 
     const { data, error } = await supabase
         .from('pacientes')
@@ -37,11 +31,10 @@ formPaciente.addEventListener('submit', async (event) => {
     }
 });
 
-// 1. Referenciar os novos elementos
+// --- LÓGICA DE LISTAGEM (VISUAL NOVO) ---
 const btnListar = document.getElementById('btn-listar');
 const listaPacientes = document.getElementById('lista-pacientes');
 
-// 2. Criar a função de busca (Select)
 btnListar.addEventListener('click', async () => {
     // Busca todos os campos da tabela 'pacientes'
     const { data, error } = await supabase
@@ -53,19 +46,24 @@ btnListar.addEventListener('click', async () => {
         return;
     }
 
-    // 3. Limpar a lista antes de mostrar (para não duplicar se clicar duas vezes)
-    listaPacientes.innerHTML = '<h4>Pacientes Cadastrados:</h4>';
+    // Limpa a área antes de mostrar os novos dados
+    listaPacientes.innerHTML = ''; 
 
-    // 4. Criar o visual da lista
     if (data.length === 0) {
-        listaPacientes.innerHTML += '<p>Nenhum paciente encontrado.</p>';
+        listaPacientes.innerHTML = '<p style="text-align:center;">Nenhum paciente encontrado.</p>';
     } else {
-        const ul = document.createElement('ul');
+        // Mapeia os dados e cria os cards bonitões
         data.forEach(paciente => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${paciente.nome}</strong> - ${paciente.celular} (${paciente.email})`;
-            ul.appendChild(li);
+            const card = document.createElement('div');
+            card.className = 'paciente-card'; // Essa classe deve estar no seu style.css
+            
+            card.innerHTML = `
+                <strong>👤 ${paciente.nome}</strong>
+                <span>📞 ${paciente.celular}</span>
+                <span>✉️ ${paciente.email}</span>
+            `;
+            
+            listaPacientes.appendChild(card);
         });
-        listaPacientes.appendChild(ul);
     }
 });

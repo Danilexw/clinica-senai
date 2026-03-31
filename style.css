@@ -1,7 +1,125 @@
-body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 50px; }
-.container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-.campo { margin-bottom: 15px; }
-label { display: block; margin-bottom: 5px; font-weight: bold; }
-input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-button:hover { background-color: #0056b3; }
+/* Configurações Globais */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #28a745;
+    --bg-color: #f4f7f6;
+    --text-color: #333;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background: var(--card-bg);
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #222;
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Campos do Formulário */
+.campo {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* Garante que o padding não quebre a largura */
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+#btn-cadastrar {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#btn-listar {
+    background-color: var(--secondary-color);
+    color: white;
+    margin: 20px 0;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.divider {
+    height: 1px;
+    background: #eee;
+    margin: 30px 0;
+}
+
+/* Estilização da Lista de Pacientes */
+.grid-pacientes {
+    display: grid;
+    gap: 15px;
+}
+
+.paciente-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.paciente-card span {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 3px;
+}
+
+.paciente-card strong {
+    font-size: 16px;
+    color: #222;
+    text-transform: uppercase;
+}
